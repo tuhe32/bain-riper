@@ -1,0 +1,126 @@
+schema: spec-driven
+
+# Project context (optional)
+# This is shown to AI when creating artifacts.
+context: |
+  # ===== 项目骨架（详见 openspec/project-profile.md）=====
+  Project Profile (项目骨架的唯一真相源):
+    - Path: openspec/project-profile.md
+    - Usage: 技术栈、分层目录、资源路径、领域约定、参考模板、repowiki 映射
+      等所有「换了项目必改」的信息均在此文件。§1 技术栈 / §2 项目骨架 /
+      §3 标准分层 / §4 领域约定 / §5 参考模板 / §6 repowiki 章节目录。
+    - Purpose: 实现「核心套件跨项目复用 / 只换 Profile」两层架构。
+
+  # ===== 前置必读资料（生成任何 artifact 前务必按需阅读相关章节）=====
+  Project Constitution (最高优先级，始终生效):
+    - Path: .qoder/rules/project_constitution.md
+    - Usage: 项目宪法（trigger: always_on）。10 条跨场景绝不可违反的底线：
+      §1 Spec is Truth / §2 Restate First / §3 多租户字段完整性 /
+      §4 SHALL-MUST 关键字 / §5 禁止重复造轮子 / §6 禁止猜测 API /
+      §7 标准分层目录 / §8 参考代码优先对齐 / §9 禁止独立编译任务 /
+      §10 Preflight 自检物理可见。宪法优先级高于其余所有 context 与 rules；
+      任一条款与下方规则冲突时以宪法为准。
+
+  Restate First (最先执行，先于前置阅读与 artifact 生成):
+    - Rule: 在任何前置阅读、CLI 调用、artifact 生成之前，必须先用 8 行以内
+      复述理解：任务目标 / 边界 / Done Contract / 关键风险或歧义；并等待
+      用户明确确认后才进入后续流程。若存在歧义必须先澄清。执行前
+      checkpoint、偏差暴露后、artifact 收尾时均需重新对齐核心目标。
+    - Purpose: 避免"四件套写完才发现理解错了"的返工（源自 SDD-RIPER Light）。
+
+  Clarify (Restate 通过后、前置阅读前执行):
+    - Rule: 必须用 AskUserQuestion 主动列出 3-5 个歧义点（每条给出
+      二选一或三选一候选答案），等用户作答并把答案回写到 Restate 末尾
+      形成"对齐纪要"，再进入前置阅读。数据模型/接口/权限/租户/编制计划类
+      变更必须执行；纯修正、单枚举等简单任务可显式声明"本任务无需 Clarify"
+      并获"OK"后继续。
+    - Purpose: 把 Restate First 从"复述理解"升级为"主动暴露并锁死边界"
+      （源自 GitHub Spec-Kit /clarify 阶段）。
+
+  Task Tiers (Restate 末尾必须声明):
+    - Path: .qoder/rules/openspec_task_tiers.md
+    - Rule: Restate 8 行里必须增加"档位：<zero|fast|standard|deep> + 一句话理由"。
+      ① zero：纯问答，不生成 artifact，不走 openspec；
+      ② fast：单字段/单枚举/错别字/常量修订，直接 spec delta + 1 task，
+        跳过 design.md 与 Clarify（需显式声明），repowiki 最多 0-1 章节；
+      ③ standard（默认）：完整四件套 + Clarify 3-5 点 + repowiki 最多 2 章节；
+      ④ deep：四件套 + codemap.md + Clarify ≥5 点（覆盖架构/数据/租户/性能）
+        + Reverse Sync 零容忍 + repowiki 最多 3 章节。
+      升档必须等用户确认并补齐前置流程；AI 不得主动降档。
+    - Purpose: 让小任务轻量、大任务扎实（对标 SDD-RIPER Light/Standard 双档）。
+
+  Preflight 物理化展示 (进入 Step 1 前必须执行):
+    - Rule: 必须在主回复开头用 Markdown checkbox（- [x] / - [ ]）显式
+      打印 .qoder/rules/openspec_preflight.md §二 自检清单的真实勾选状态，
+      禁止仅用"已完成 Preflight"等文字描述代替。未展示勾选结果 = 视为未执行。
+    - Purpose: 把软约束升级为物理约束（宪法 §10 落地、对标 Kiro hooks）。
+
+  Change Inputs (per-change, 最高优先级):
+    - Path: openspec/changes/<name>/inputs/
+    - Usage: 每个 change 自带的原始需求资料（PRD、会议纪要、接口草案、
+      原型图等）。生成 artifact 前必须完整阅读该目录；目录缺失或为空
+      时禁止凭空编写需求，须先向用户确认并将结果落盘到
+      inputs/requirement.md。inputs/ 随 change 一同归档以供回溯。
+
+  Knowledge Base (repowiki):
+    - Path: 见 openspec/project-profile.md §2（知识库路径）
+    - Usage: 涉及现有功能、架构、数据模型、API 的提案按需检索。
+    - Read Strategy (硬规则，降成本):
+      ① 预判：根据 Restate 选最多 2 个主章节，无关章节禁止打开；
+      ② 先 list_dir 再 read_file：对目标章节先列文件清单，按文件名
+        挑 1-3 个最相关的 .md 读取，禁止整目录批量 read_file；
+      ③ 不重复读：本 session 内已读文件禁止再次 read_file，
+        跨轮对话中上一轮已读内容视为已读，仅在用户要求"重新读"时才重读；
+      ④ Preflight §二 自检必须列出已读章节清单作为取证。
+    - Purpose: 把 repowiki 从"每轮全量扫描"改为"按需最小读取 + 跨轮缓存"，
+      显著降低 token 与响应延迟（对标 Claude Code context window 管理）。
+
+  Reference Code Templates:
+    - Path: 见 openspec/project-profile.md §2（参考代码路径）
+    - Usage: 新增 CRUD / 导入导出 / 权限 / 分页等常规功能时，
+      必须以参考模板的七层结构、命名、注解、分页写法、多租户字段为准。
+      → 完整七层文件清单见 openspec/project-profile.md §5。
+
+  Project Rules:
+    - Path: .qoder/rules/openspec_specifications.md
+    - Usage: OpenSpec 提案阶段的完整规范（前置阅读、目录结构、
+      依赖使用、实现复用原则、SHALL/MUST 输出规范均在此文件
+      中）。
+
+# Per-artifact rules (optional)
+rules:
+  proposal:
+    - 宪法优先：必须先遵守 .qoder/rules/project_constitution.md 10 条底线；宪法与以下规则冲突时以宪法为准
+    - Restate First：生成 proposal 前必须先用 8 行以内复述任务目标 / 边界 / Done Contract / 风险，并等待用户明确确认；未确认前禁止进入前置阅读或 artifact 生成
+    - Clarify：Restate 确认后必须用 AskUserQuestion 列 3-5 个歧义点（二选一或三选一候选）并等用户作答；简单任务可显式声明"无需 Clarify"并获"OK"后继续（数据模型/接口/权限/租户/编制计划类变更不得省略）
+    - Task Tier：Restate 末尾必须声明 zero/fast/standard/deep 档位 + 一句话理由；fast 档跳过 design.md 与 Clarify，standard 默认全套，deep 追加 codemap.md 与 ≥5 个 Clarify 点；AI 不得主动降档，升档须用户确认
+    - Preflight 物理化展示：进入 Step 1 前必须在主回复开头以 Markdown checkbox（- [x] / - [ ]）显式打印 preflight §二 自检清单的真实勾选状态，禁止仅用文字描述代替
+    - 生成 proposal 前必须先阅读 openspec/changes/<name>/inputs/ 下所有文件；该目录缺失或为空时禁止凭空编写，须先确认需求并落盘到 inputs/requirement.md
+    - Why / What Changes 必须能在 inputs/requirement.md 中找到对应依据，不得夹带需求文档未提及的功能
+    - Why 部分必须引用 .qoder/repowiki 中对应章节，明确与现有能力的边界
+    - repowiki 按需读取：最多选 2 个主章节、先 list_dir 再 read_file 挑 1-3 个最相关 .md、本 session 已读文件禁止重读；Preflight 自检必须列出已读清单
+    - What Changes 中对每一项新增能力，须标注可参考的 docs/reference-code 模板路径
+    - Impact 必须列出受影响的 repowiki 章节（未来需要更新的知识条目）
+    - 禁止凭空假设技术栈，须以实际依赖为准（pom 路径见 openspec/project-profile.md §2）
+    - 避免重复造轮子：新增功能前先检索仓库现有实现与 pom.xml 已有的包，禁止引入功能重复的依赖或重复实现已有工具类
+    - 禁止猜测第三方包用法：若 reference-code 与仓库现有实现中均未找到同类型用法，必须先阅读包源码或 README 确认 API 存在后再引用
+
+  design:
+    - 宪法优先：遵守 .qoder/rules/project_constitution.md §7 标准分层、§8 参考代码对齐
+    - Context 部分必须引用 .qoder/repowiki/zh/content/数据模型设计 与 系统架构设计 对应章节
+    - Decisions 涉及 Domain/Mapper/Controller 选型时，须对齐参考模板的继承与注解写法（具体基类与注解名见 openspec/project-profile.md §4）
+    - Non-Goals 中显式声明不修改的 repowiki 现有模块
+
+  specs:
+    - 宪法优先：遵守 .qoder/rules/project_constitution.md §3 多租户、§4 SHALL/MUST
+    - Requirements 条目必须以 SHALL 或 MUST 开头（OpenSpec 归档校验要求）
+    - WHEN/THEN/AND 场景的行为描述需与 reference-code 中同类型功能的行为保持一致
+    - 数据模型类 spec 必须包含：建表 SQL 路径（见 openspec/project-profile.md §2）、表名 snake_case、主键与多租户字段（字段名见 openspec/project-profile.md §4）
+
+  tasks:
+    - 宪法优先：遵守 .qoder/rules/project_constitution.md §9 禁止独立编译任务
+    - 每个任务必须可独立验证（给出验证命令或证据）
+    - 涉及新增类的任务，必须指明参考的 docs/reference-code 文件路径
+    - 建表 / SQL 脚本任务统一放到建表 SQL 路径（见 openspec/project-profile.md §2）
+    - Mapper XML 统一放到 Mapper XML 路径（见 openspec/project-profile.md §2）
+    - 禁止包含独立的编译验证任务（如 mvn clean compile / mvn compile）；单任务内的"编译无错误"作为验证证据可保留

@@ -75,7 +75,7 @@ codegraph sync          # 对修改增量更新
 
 > repowiki 知识库按需阅读：AI 在每个任务中最多选择 2 个主章节，先列目录再读文件，避免全量扫描。
 
-### 4. 在 `docs/reference-code` 中复制一个完整的 CRUD 实例代码
+### 4. 在 `docs/reference-code` 中复制一个完整的 CRUD 示例代码
 
 将你项目中的一个完整 CRUD 功能代码复制到 `docs/reference-code/` 目录下，作为后续所有同类功能的参考模板。参考代码基于 [RuoYi-Vue-Plus](https://gitee.com/dromara/RuoYi-Vue-Plus) 5.X 代码生成模板（`ruoyi-generator/src/main/resources/vm/`），以 `EmployeeTraining` 为示例实体，覆盖：
 
@@ -105,7 +105,7 @@ codegraph sync          # 对修改增量更新
 /opsx:archive   → 归档完成的 change
 ```
 
-### 6. 大需求文档预处理提示词实例
+### 6. 大需求文档预处理提示词示例
 
 ```
 增加xxxx功能，仔细分析需求文档 xxxx功能.docx​ ，现在需要你解析文档，与我进行多次提问对话，确认需求的功能流程、细节实现、实现步骤以便指导后端服务的开发步骤和技术实现细节等。若需要判断项目技术框架等，直接参考项目的.qoder/repowiki中的知识库文档

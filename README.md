@@ -105,6 +105,16 @@ codegraph sync          # 对修改增量更新
 /opsx:archive   → 归档完成的 change
 ```
 
+### 6. 大需求文档预处理提示词实例
+
+```
+增加xxxx功能，仔细分析需求文档 xxxx功能.docx​ ，现在需要你解析文档，与我进行多次提问对话，确认需求的功能流程、细节实现、实现步骤以便指导后端服务的开发步骤和技术实现细节等。若需要判断项目技术框架等，直接参考项目的.qoder/repowiki中的知识库文档
+```
+
+```
+将以上任务清单，按照实现步骤进行合理拆分，基于OpenSpec分步骤实现。把需求拆分后落盘到openspec/changes/<name>/inputs/requirement.md中，其中的<name>是实现步骤的英文名。将每个需求的实现步骤创建独立的<name>文件夹，参考.qoder/rules/openspec_preflight.md的一、1. 本次 change 的原始需求输入（最高优先级），若有问题立即沟通
+```
+
 完整工作流：
 
 ```

@@ -10,6 +10,7 @@
 
 ```
 bain-riper/
+├── .codegraph/          # Codegraph 代码索引库
 ├── .qoder/
 │   ├── rules/           # 7 个规则文件（宪法 / Preflight / CodeGraph / Task Tiers 等）
 │   ├── commands/opsx/   # OpenSpec 斜杠命令（/opsx:propose, /opsx:apply 等）

@@ -43,6 +43,13 @@ npm install -g @openspec/cli
 openspec --version
 ```
 
+在业务代码仓库中初始化：
+
+```bash
+cd /path/to/your-java-project
+openspec init
+```
+
 ### 2. 安装 CodeGraph
 
 CodeGraph 是本地代码知识图谱，为 AI 提供秒级代码符号检索、调用链分析和变更影响评估，替代全库扫描以降低 token 消耗。

@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "codegraph": {
+      "command": "codegraph",
+      "args": ["serve", "--mcp", "-p", "/path/to/your-java-project"],
+      "enabled": true
+    }
+  }
+}

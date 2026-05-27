@@ -62,8 +62,8 @@
 | 项 | 值 |
 |---|---|
 | 多租户字段 | `tenant_id`（所有业务表、DTO、Mapper 查询必含） |
-| 实体基类 | `TenantModel`（binfast 框架提供） |
-| Mapper 基类 | `BinBaseMapper<T>`（binfast 框架提供） |
+| 实体基类 | `TenantModel` |
+| Mapper 基类 | `BaseMapperPlus<T>`（RuoYi-Vue-Plus 框架提供） |
 | 表名注解 | `@TableName("table_name")`（snake_case） |
 | API 文档注解 | `@ApiModelProperty` |
 | 响应风格 | RESTful |

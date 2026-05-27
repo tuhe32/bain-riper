@@ -106,19 +106,24 @@ codegraph sync          # 对修改增量更新
 /opsx:archive   → 归档完成的 change
 ```
 
-### 6. 大需求文档预处理提示词示例
+### 6. 大需求文档预处理（Skill：`requirement-breakdown`）
+
+当拿到一份完整的需求文档（.docx）时，使用内置 skill 自动完成解析→澄清→拆分→落盘的全流程：
 
 ```
-增加xxxx功能，仔细分析需求文档 xxxx功能.docx​ ，现在需要你解析文档，与我进行多次提问对话，确认需求的功能流程、细节实现、实现步骤以便指导后端服务的开发步骤和技术实现细节等。若需要判断项目技术框架等，直接参考项目的.qoder/repowiki中的知识库文档
+/requirement-breakdown 需求文档.docx
 ```
 
-```
-将以上任务清单，按照实现步骤进行合理拆分，基于OpenSpec分步骤实现。把需求拆分后落盘到openspec/changes/<name>/inputs/requirement.md中，其中的<name>是实现步骤的英文名。将每个需求的实现步骤创建独立的<name>文件夹，参考.qoder/rules/openspec_preflight.md的一、1. 本次 change 的原始需求输入（最高优先级），若有问题立即沟通
-```
+Skill 会按以下步骤执行：
+1. **读取知识库** — 从 `.qoder/repowiki/` 了解项目技术栈与现有模块
+2. **解析需求文档** — 提取功能模块、数据实体、接口清单
+3. **多轮澄清对话** — 确认功能边界、优先级、技术细节
+4. **拆分并落盘** — 为每个独立实现步骤创建 `openspec/changes/<name>/inputs/requirement.md`
+5. **输出拆分总览** — 展示所有 change 的依赖关系和执行顺序
 
-```
-/​opsx:propose​ 实现openspec/changes/<name>/inputs/requirement.md的需求
-```
+完成后逐个执行 `/opsx:propose openspec/changes/<name>/inputs/requirement.md` 即可开始实现。
+
+> Skill 文件位于 `.qoder/skills/requirement-breakdown/SKILL.md`。
 
 完整工作流：
 

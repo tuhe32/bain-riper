@@ -11,26 +11,67 @@
 ```
 bain-riper/
 ├── .codegraph/          # Codegraph 代码索引库
+├── .github/workflows/   # GitHub Actions（Pages 部署）
 ├── .qoder/
 │   ├── rules/           # 7 个规则文件（宪法 / Preflight / CodeGraph / Task Tiers 等）
 │   ├── commands/opsx/   # OpenSpec 斜杠命令（/opsx:propose, /opsx:apply 等）
-│   ├── skills/          # 9 个 OpenSpec 技能定义
+│   ├── skills/          # OpenSpec 技能定义
 │   ├── repowiki/zh/     # 项目知识库（架构 / 数据模型 / API / 运维 / 安全等）
 │   └── mcp.json         # MCP 服务器配置（CodeGraph 指向实际代码仓库）
+├── cli/                 # bain-riper-cli 脚手架工具（npx 一键引入）
 ├── docs/
 │   └── reference-code/  # RuoYi-Vue-Plus 风格 CRUD 参考模板（EmployeeTraining 示例）
-└── openspec/
-    ├── config.yaml      # OpenSpec 工作流配置
-    ├── project-profile.md  # 项目骨架 Profile（技术栈 / 分层 / 约定 / 模板）
-    ├── specs/           # 当前活跃 spec 快照
-    └── changes/archive/ # 已归档的 change 历史
+├── openspec/
+│   ├── config.yaml      # OpenSpec 工作流配置
+│   ├── project-profile.md  # 项目骨架 Profile（技术栈 / 分层 / 约定 / 模板）
+│   ├── specs/           # 当前活跃 spec 快照
+│   └── changes/archive/ # 已归档的 change 历史
+└── site/                # 文档站点（GitHub Pages）
 ```
 
 ---
 
-## 安装步骤
+## 快速开始
 
-### 1. 安装 OpenSpec
+### CLI 一键引入（推荐）
+
+在你的项目根目录执行一条命令，即可将 AI 工程化体系的全部资产引入：
+
+```bash
+npx bain-riper-cli init --all
+```
+
+CLI 会自动完成以下操作：
+- 复制规则文件、技能、OpenSpec 配置和参考代码到你的项目
+- 检测并全局安装 OpenSpec CLI（如未安装），然后执行 `openspec init`
+- 打印安装后须知，提示你需要手动编辑的文件
+
+#### 其他 CLI 命令
+
+| 命令 | 说明 |
+|------|------|
+| `npx bain-riper-cli init` | 交互式选择要安装的模块 |
+| `npx bain-riper-cli init --all` | 全量安装所有模块 |
+| `npx bain-riper-cli init --all --skip-openspec` | 全量安装，跳过 OpenSpec 检测 |
+| `npx bain-riper-cli add <module>` | 安装单个模块 |
+| `npx bain-riper-cli add <module> --force` | 覆盖已存在的文件 |
+| `npx bain-riper-cli list` | 查看各模块安装状态 |
+
+#### 可用模块
+
+| 模块 ID | 说明 |
+|---------|------|
+| `rules` | 7 个 AI 规则文件（宪法 / Preflight / Task Tiers 等） |
+| `skills` | 需求拆分 Skill（requirement-breakdown） |
+| `mcp` | CodeGraph MCP 配置（mcp.json） |
+| `openspec` | OpenSpec 工作流配置 + 项目 Profile |
+| `reference-code` | Java CRUD 参考模板（EmployeeTraining 八层示例） |
+
+### 手动安装
+
+如果不使用 CLI，也可以手动安装各依赖：
+
+#### 1. 安装 OpenSpec
 
 OpenSpec 是本体系的核心 CLI，管理 proposal → design → spec → tasks → archive 的完整工作流。
 
@@ -51,7 +92,7 @@ cd /path/to/your-java-project
 openspec init
 ```
 
-### 2. 安装 CodeGraph
+#### 2. 安装 CodeGraph
 
 CodeGraph 是本地代码知识图谱，为 AI 提供秒级代码符号检索、调用链分析和变更影响评估，替代全库扫描以降低 token 消耗。
 
@@ -70,13 +111,13 @@ codegraph sync          # 对修改增量更新
 
 > CodeGraph 以 MCP 模式运行（`codegraph serve --mcp`），内置文件监听器自动增量同步，无需手动执行 `codegraph sync`。相关配置见 `.qoder/mcp.json`。
 
-### 3. 打开 Qoder 软件，构建项目的 repowiki 知识库
+### 打开 Qoder 软件，构建项目的 repowiki 知识库
 
 在 Qoder 中打开本项目目录，AI 助手将基于 `openspec/project-profile.md`、`.qoder/rules/` 下的规则文件和 `.qoder/repowiki/zh/` 中的知识库内容，建立对项目架构、数据模型、API 接口和开发规范的完整认知。
 
 > repowiki 知识库按需阅读：AI 在每个任务中最多选择 2 个主章节，先列目录再读文件，避免全量扫描。
 
-### 4. 在 `docs/reference-code` 中复制一个完整的 CRUD 示例代码
+### 在 `docs/reference-code` 中复制一个完整的 CRUD 示例代码
 
 将你项目中的一个完整 CRUD 功能代码复制到 `docs/reference-code/` 目录下，作为后续所有同类功能的参考模板。参考代码基于 [RuoYi-Vue-Plus](https://gitee.com/dromara/RuoYi-Vue-Plus) 5.X 代码生成模板（`ruoyi-generator/src/main/resources/vm/`），以 `EmployeeTraining` 为示例实体，覆盖：
 
@@ -95,7 +136,7 @@ codegraph sync          # 对修改增量更新
 >
 > 关键约定：Entity 继承 `TenantEntity`、Mapper 继承 `BaseMapperPlus<Entity, Vo>`、Controller 继承 `BaseController`、统一响应 `R<T>` / `TableDataInfo<T>`、构造器注入 `@RequiredArgsConstructor`。
 
-### 5. 每次 AI 工作的标准流程
+### 每次 AI 工作的标准流程
 
 所有开发任务按 OpenSpec 默认流程执行，使用 `/opsx` 系列斜杠命令：
 
@@ -106,7 +147,7 @@ codegraph sync          # 对修改增量更新
 /opsx:archive   → 归档完成的 change
 ```
 
-### 6. 大需求文档预处理（Skill：`requirement-breakdown`）
+### 大需求文档预处理（Skill：`requirement-breakdown`）
 
 当拿到一份完整的需求文档（.docx）时，使用内置 skill 自动完成解析→澄清→拆分→落盘的全流程：
 
@@ -149,7 +190,15 @@ Skill 会按以下步骤执行：
 
 ## 移植到新项目
 
-本仓库的核心规则文件实现了"核心套件跨项目复用 / 只换 Profile"的两层架构。移植时只需修改：
+**推荐方式**：在目标项目根目录直接执行 CLI 一键引入：
+
+```bash
+npx bain-riper-cli init --all
+```
+
+CLI 会自动复制规则、技能、OpenSpec 配置和参考代码，并提示你需要编辑的文件。
+
+**手动移植**：本仓库的核心规则文件实现了"核心套件跨项目复用 / 只换 Profile"的两层架构。移植时只需修改：
 
 1. **`openspec/project-profile.md`** — 技术栈、包路径、领域约定、参考模板清单、repowiki 章节目录映射
 2. **`.qoder/mcp.json`** — CodeGraph 指向新的代码仓库路径
@@ -157,6 +206,27 @@ Skill 会按以下步骤执行：
 4. **`docs/reference-code/`** — 替换为新项目的 CRUD 参考模板
 
 其余规则文件（宪法 / Preflight / Task Tiers 等）无需改动。
+
+---
+
+## 文档站点
+
+在线文档：[https://yourname.github.io/bain-riper/](https://yourname.github.io/bain-riper/)
+
+站点源码位于 `site/` 目录，通过 GitHub Actions 自动部署。
+
+---
+
+## CLI 开发与发布
+
+```bash
+cd cli/
+npm install                  # 安装依赖
+npm run sync                 # 手动同步模板文件到 templates/
+npm publish                  # 发布前自动触发 prepublishOnly 同步
+```
+
+> `templates/` 目录不纳入 Git，通过 `prepublishOnly` 钩子在发布前自动从仓库根目录复制最新文件。
 
 ---
 

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bain-riper — AI 工程化规则层框架</title>
+  <meta name="description" content="让 AI 编码助手在严格的规则约束下完成需求→设计→规格→实施的完整闭环。一条命令，将 AI 工程化体系引入你的项目。">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#" class="logo">⚡ bain-riper</a>
+      <div class="nav-links">
+        <a href="#features">功能</a>
+        <a href="#workflow">工作流</a>
+        <a href="#quickstart">快速开始</a>
+        <a href="#modules">模块</a>
+        <a href="https://github.com/nicepkg/bain-riper" class="btn btn-outline btn-sm" target="_blank">GitHub ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">开源 · MIT 协议</div>
+      <h1 class="hero-title">让 AI 写出的代码<br><span class="gradient-text">符合工程规范</span></h1>
+      <p class="hero-desc">一条命令引入 AI 工程化体系 —— 通过 OpenSpec 规范驱动、CodeGraph 代码图谱、repowiki 知识库和参考代码模板，让 AI 编码助手在严格的规则约束下完成需求→设计→规格→实施的完整闭环。</p>
+      <div class="hero-actions">
+        <a href="#quickstart" class="btn btn-primary btn-lg">快速开始</a>
+        <a href="https://github.com/nicepkg/bain-riper" class="btn btn-outline btn-lg" target="_blank">GitHub ↗</a>
+      </div>
+      <div class="hero-code">
+        <div class="code-header">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="code-title">终端</span>
+        </div>
+        <pre><code><span class="comment"># 在你的项目中引入 AI 工程化体系</span>
+<span class="prompt">$</span> npx bain-riper-cli init --all</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install -->
+  <section class="install-section">
+    <div class="container">
+      <p class="install-text">一条命令，将规则、技能、工作流和参考模板引入你的项目</p>
+      <div class="install-cmd" onclick="copyCmd(this)">
+        <code>npx bain-riper-cli init --all</code>
+        <span class="copy-icon">📋</span>
+      </div>
+      <p class="install-hint">支持 Qoder / Cursor / Claude Code / Copilot 等 AI 编码工具</p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>从需求到交付的<span class="gradient-text">完整约束</span></h2>
+        <p class="section-desc">不是又一个代码生成器，而是让 AI 按规矩干活的工程化治理层</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📐</div>
+          <h3>多维规则治理</h3>
+          <p>项目宪法 / Preflight 自检 / Task Tiers 四档分级等 7 类规则文件，定义 AI 不可违反的开发底线</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>OpenSpec 规范驱动</h3>
+          <p>proposal → design → spec → tasks → archive 完整工作流，spec 是业务行为的唯一真相源</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <h3>知识驱动开发</h3>
+          <p>repowiki 项目知识库提供架构、API、安全等结构化知识，AI 按需读取，避免全量扫描</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h3>CodeGraph 代码图谱</h3>
+          <p>本地代码知识图谱，秒级符号检索、调用链分析和变更影响评估，替代全库扫描降低 token 消耗</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <h3>模板继承机制</h3>
+          <p>八层 CRUD 参考模板定义继承结构、注解写法、分页约定、多租户处理，新增功能必须对齐</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔁</div>
+          <h3>逆向同步</h3>
+          <p>apply 阶段自动检测 spec 偏差并触发 Reverse Sync 五步法，确保代码与规格始终一致</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workflow -->
+  <section class="section section-dark" id="workflow">
+    <div class="container">
+      <div class="section-header">
+        <h2>标准工作流</h2>
+        <p class="section-desc">每个 AI 编码任务都遵循严格的闭环流程</p>
+      </div>
+      <div class="workflow-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>需求输入</h4>
+            <p>描述需求或上传需求文档（.docx），AI 自动解析并拆分为独立的 OpenSpec change</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Restate First</h4>
+            <p>AI 用 8 行复述目标 / 边界 / 风险，等你确认后才进入下一步</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Clarify</h4>
+            <p>主动暴露 3-5 个歧义点，提供选项让你确认，消除边界模糊</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>四件套生成</h4>
+            <p>依次生成 proposal → design → spec → tasks，每步有 Preflight 自检</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Apply 实施</h4>
+            <p>按 tasks 逐条实现代码，偏差时自动触发 Reverse Sync 修正</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <h4>Verify & Archive</h4>
+            <p>验证实施与 spec 一致后归档，形成可追溯的变更历史</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quickstart -->
+  <section class="section" id="quickstart">
+    <div class="container">
+      <div class="section-header">
+        <h2>快速开始</h2>
+        <p class="section-desc">三步将 AI 工程化体系引入你的项目</p>
+      </div>
+      <div class="quickstart-grid">
+        <div class="qs-card">
+          <div class="qs-num">01</div>
+          <h3>CLI 一键初始化</h3>
+          <p>在你的项目根目录执行，自动安装规则、技能、OpenSpec 配置和参考代码</p>
+          <div class="code-block">
+            <pre><code>npx bain-riper-cli init --all</code></pre>
+          </div>
+        </div>
+        <div class="qs-card">
+          <div class="qs-num">02</div>
+          <h3>编辑项目 Profile</h3>
+          <p>修改 <code>openspec/project-profile.md</code>，替换为你的技术栈、包路径和领域约定</p>
+          <div class="code-block">
+            <pre><code><span class="comment"># 只需修改这一个文件</span>
+openspec/project-profile.md</code></pre>
+          </div>
+        </div>
+        <div class="qs-card">
+          <div class="qs-num">03</div>
+          <h3>开始 AI 开发</h3>
+          <p>在 AI 编码工具中使用斜杠命令，按标准工作流执行开发任务</p>
+          <div class="code-block">
+            <pre><code>/opsx:propose   <span class="comment"># 描述需求</span>
+/opsx:apply     <span class="comment"># 实施代码</span>
+/opsx:verify    <span class="comment"># 验证一致性</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLI Modules -->
+  <section class="section section-dark" id="modules">
+    <div class="container">
+      <div class="section-header">
+        <h2>CLI 模块</h2>
+        <p class="section-desc">选择性安装，按需引入</p>
+      </div>
+      <div class="modules-grid">
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-icon">📐</span>
+            <h3>rules</h3>
+          </div>
+          <p>7 个 AI 规则文件：项目宪法、Preflight 自检、Task Tiers 分级、CodeGraph 规则等</p>
+          <div class="module-cmd" onclick="copyCmd(this)">
+            <code>npx bain-riper-cli add rules</code>
+            <span class="copy-icon">📋</span>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-icon">🧩</span>
+            <h3>skills</h3>
+          </div>
+          <p>需求拆分 Skill，将大需求文档自动解析、澄清并拆分为多个独立 OpenSpec change</p>
+          <div class="module-cmd" onclick="copyCmd(this)">
+            <code>npx bain-riper-cli add skills</code>
+            <span class="copy-icon">📋</span>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-icon">🔗</span>
+            <h3>mcp</h3>
+          </div>
+          <p>CodeGraph MCP 配置，让 AI 通过代码知识图谱进行秒级符号检索和调用链分析</p>
+          <div class="module-cmd" onclick="copyCmd(this)">
+            <code>npx bain-riper-cli add mcp</code>
+            <span class="copy-icon">📋</span>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-icon">📄</span>
+            <h3>openspec</h3>
+          </div>
+          <p>OpenSpec 工作流配置和项目 Profile 模板，驱动完整的需求→实施闭环</p>
+          <div class="module-cmd" onclick="copyCmd(this)">
+            <code>npx bain-riper-cli add openspec</code>
+            <span class="copy-icon">📋</span>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-icon">☕</span>
+            <h3>reference-code</h3>
+          </div>
+          <p>Java CRUD 八层参考模板（EmployeeTraining 示例），定义分层、注解和多租户约定</p>
+          <div class="module-cmd" onclick="copyCmd(this)">
+            <code>npx bain-riper-cli add reference-code</code>
+            <span class="copy-icon">📋</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-num">7</div>
+          <div class="stat-label">规则文件</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">10</div>
+          <div class="stat-label">宪法底线条款</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">8</div>
+          <div class="stat-label">CRUD 参考层</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1</div>
+          <div class="stat-label">条命令上手</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Constitution -->
+  <section class="section" id="constitution">
+    <div class="container">
+      <div class="section-header">
+        <h2>项目宪法 · <span class="gradient-text">10 条底线</span></h2>
+        <p class="section-desc">AI 在本项目中执行任何任务时必须遵守的最高优先级规则</p>
+      </div>
+      <div class="constitution-grid">
+        <div class="const-item"><span class="const-num">§1</span><strong>Spec is Truth</strong><p>spec 是业务行为的唯一真相源</p></div>
+        <div class="const-item"><span class="const-num">§2</span><strong>Restate First</strong><p>实施前必须复述目标并获确认</p></div>
+        <div class="const-item"><span class="const-num">§3</span><strong>多租户完整性</strong><p>所有业务实体必须含 tenant_id</p></div>
+        <div class="const-item"><span class="const-num">§4</span><strong>SHALL / MUST</strong><p>规格书条目必须以强动词开头</p></div>
+        <div class="const-item"><span class="const-num">§5</span><strong>禁止重复造轮子</strong><p>新增功能前先检索现有实现</p></div>
+        <div class="const-item"><span class="const-num">§6</span><strong>禁止猜测 API</strong><p>必须确认 API 存在且版本兼容</p></div>
+        <div class="const-item"><span class="const-num">§7</span><strong>标准分层目录</strong><p>所有 Java 类落在规定目录</p></div>
+        <div class="const-item"><span class="const-num">§8</span><strong>参考代码对齐</strong><p>同类功能对齐参考模板风格</p></div>
+        <div class="const-item"><span class="const-num">§9</span><strong>禁止独立编译</strong><p>不得单独列出编译验证步骤</p></div>
+        <div class="const-item"><span class="const-num">§10</span><strong>自检物理可见</strong><p>进入工作流前展示自检清单</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container cta-inner">
+      <h2>一条命令引入 AI 工程化体系</h2>
+      <p>开源 · MIT 协议 · 核心套件跨项目复用，只换 Profile</p>
+      <div class="hero-actions">
+        <a href="#quickstart" class="btn btn-primary btn-lg">快速开始</a>
+        <a href="https://github.com/nicepkg/bain-riper" class="btn btn-outline btn-lg" target="_blank">GitHub ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo">⚡ bain-riper</span>
+        <p>AI 工程化规则层框架</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/nicepkg/bain-riper" target="_blank">GitHub</a>
+        <a href="#features">功能</a>
+        <a href="#quickstart">快速开始</a>
+        <a href="#constitution">宪法</a>
+      </div>
+      <p class="footer-copy">© 2025 bain-riper. MIT License.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

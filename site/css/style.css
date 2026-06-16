@@ -78,7 +78,7 @@ code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.9em; backgro
 .install-text { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 20px; }
 .install-cmd { display: inline-flex; align-items: center; gap: 12px; padding: 14px 24px; background: var(--bg-dark); border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: border-color 0.2s; }
 .install-cmd:hover { border-color: var(--accent); }
-.install-cmd code { font-size: 1.1rem; background: none; padding: 0; color: var(--text-bright); }
+.install-cmd code { font-size: 1.1rem; background: none; padding: 0; color: #e2e8f0; }
 .copy-icon { font-size: 1rem; opacity: 0.5; transition: opacity 0.2s; }
 .install-cmd:hover .copy-icon, .module-cmd:hover .copy-icon { opacity: 1; }
 .install-hint { margin-top: 16px; font-size: 0.85rem; color: var(--text-dim); }

@@ -129,6 +129,26 @@ code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.9em; backgro
 .module-cmd code { font-size: 0.82rem; background: none; padding: 0; color: var(--accent); }
 
 /* === Stats === */
+
+/* === Requirement Breakdown === */
+.rb-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+.rb-left { display: flex; flex-direction: column; gap: 20px; }
+.rb-cmd { background: var(--bg-dark); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
+.rb-cmd-header { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.rb-cmd-title { margin-left: 8px; font-size: 0.8rem; color: #94a3b8; }
+.rb-cmd-body { padding: 20px; }
+.rb-cmd-body code { font-size: 1rem; background: none; padding: 0; color: #e2e8f0; }
+.rb-output { padding: 16px 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); }
+.rb-output p { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px; }
+.rb-inline-code { font-size: 0.82rem; color: var(--accent) !important; background: rgba(99,102,241,0.08) !important; padding: 4px 10px !important; border-radius: 6px; word-break: break-all; }
+.rb-steps { display: flex; flex-direction: column; gap: 14px; }
+.rb-step { display: flex; gap: 14px; align-items: flex-start; padding: 16px 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); transition: border-color 0.2s, transform 0.2s; }
+.rb-step:hover { border-color: var(--accent); transform: translateX(4px); }
+.rb-step-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+.rb-step strong { color: var(--text-bright); font-size: 0.95rem; display: block; margin-bottom: 4px; }
+.rb-step p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; margin: 0; }
+
+/* === Stats === */
 .stats-section { padding: 60px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
 .stat-num { font-size: 3rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -165,6 +185,7 @@ code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.9em; backgro
   .nav-links a:not(.btn) { display: none; }
   .hero { padding: 120px 0 60px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .rb-layout { grid-template-columns: 1fr; }
   .section { padding: 60px 0; }
   .footer-inner { flex-direction: column; text-align: center; }
   .footer-links { justify-content: center; }
